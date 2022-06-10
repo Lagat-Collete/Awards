@@ -28,7 +28,7 @@ class Profile(models.Model):
   def __str__(self):
     return str(self.user)
 
-class Projects(models.Model):
+class Project(models.Model):
   title = models.CharField(max_length=50)
   image = CloudinaryField('image')
   description = models.TextField()
@@ -45,3 +45,8 @@ class Projects(models.Model):
 
   def __str__(self):
     return str(self.user)
+
+  @classmethod
+  def search_by_title(cls,search_term):
+    project = cls.objects.filter(title__icontains=search_term)
+    return project
