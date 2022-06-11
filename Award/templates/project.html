@@ -1,0 +1,35 @@
+
+
+
+
+<div class="container">
+  {% for project in projects %}
+<div class="card">
+  <img class="card-img-top" src="{{ project.image.url}}" alt="project.developer">
+  <div class="card-body">
+    <h5 class="card-title">{{project.title }}</h5>
+    <p class="card-text">{{ project.description}}</p>
+    <p class="card-text">By: {{ project.developer}}<span>{{project.day_posted|date }}</span></p>
+    
+
+  </div>
+  <div class="card-footer">
+    <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit Site</a></small>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4 mt-3 d-inline-block" *ngFor="let quote of quotes; let i=index"></div>

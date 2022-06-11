@@ -18,6 +18,7 @@ class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
   profile_photo = CloudinaryField('photo')
   bio = models.TextField()
+  email = models.EmailField()
 
   def save_profile(self):
         self.save()
@@ -35,7 +36,7 @@ class Project(models.Model):
   developer = models.ForeignKey(User, on_delete=models.CASCADE,related_name='project')
   hyperlink = models.URLField()
   day_posted = models.DateTimeField(auto_now_add=True)
-  email = models.EmailField()
+  
 
   def save_project(self):
         self.save()
