@@ -1,6 +1,5 @@
-
-
-
+{% extends 'base.html' %} {% load bootstrap4 %} {% load static %} 
+{% block content %}
 
 <div class="container">
   {% for project in projects %}
@@ -19,6 +18,7 @@
 </div>
 {% endfor %}
 </div>
+{%endblock%}
 
 
 

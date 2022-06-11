@@ -17,7 +17,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
   profile_photo = CloudinaryField('photo')
-  bio = models.TextField()
+  bio = models.TextField(max_length=200, default="My Bio")
   email = models.EmailField()
 
   def save_profile(self):
