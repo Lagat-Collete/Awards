@@ -1,6 +1,4 @@
 
-from turtle import title
-from xml.etree.ElementTree import Comment
 from django.db import models
 from django.contrib.auth.models import User
 from distutils.command.upload import upload
@@ -11,6 +9,7 @@ from cloudinary.models import CloudinaryField
 from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
@@ -51,3 +50,11 @@ class Project(models.Model):
   def search_by_title(cls,search_term):
     project = cls.objects.filter(title__icontains=search_term)
     return project
+
+class Rating(models.Model):
+  design = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
+  usability = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
+  content = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
+
+  def __str__(self):
+      return str(self.pk)
