@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Award.urls')),
     path('accounts/', include('registration.backends.simple.urls')),
-
+    path('',views.rating, name="rating"),
 ]

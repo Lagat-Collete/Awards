@@ -10,9 +10,12 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-  path('',views.home_page, name='homepage'),
+  path('home_page/',views.home_page, name='homepage'),
   path('search/', views.search_results, name='search_results'),
-  path('project', views.project, name='project')
+  path('', views.project, name='project'),
+  path('api/profile/', views.ProfileList.as_view()),
+  path('api/project/', views.ProjectList.as_view()),
+
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
