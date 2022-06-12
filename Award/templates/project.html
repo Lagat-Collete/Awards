@@ -1,22 +1,29 @@
-{% extends 'base.html' %} {% load bootstrap4 %} {% load static %} 
+{% extends 'base.html' %} {% load bootstrap4 %} {% load static %}
 {% block content %}
 <h1>hello project</h1>
 <div class="container">
-  {% for project in projects %}
-<div class="card">
-  <img class="card-img-top" src="{{ project.image.url}}" alt="project.developer">
-  <div class="card-body">
-    <h5 class="card-title">{{project.title }}</h5>
-    <p class="card-text">{{ project.description}}</p>
-    <p class="card-text">By: {{ project.developer}}<span>{{project.day_posted|date }}</span></p>
-    
+  <div class="row">
+    <!-- <div class="col-md-4 mt-3 d-inline-block" > -->
 
+    {% for project in project %}
+    <div class="col-md-4 p-1 ">
+      <div class="card p-3 m-2">
+        <img class="card-img-top" src="{{ project.image.url}}" alt="project.developer">
+        <div class="card-body">
+          <h5 class="card-title">{{project.title }}</h5>
+          <p class="card-text">{{ project.description}}</p>
+          <p class="card-text">By: {{ project.developer}}<span>{{project.day_posted|date }}</span></p>
+
+
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit
+              Site</a></small>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
-  <div class="card-footer">
-    <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit Site</a></small>
-  </div>
-</div>
-{% endfor %}
 </div>
 {%endblock%}
 

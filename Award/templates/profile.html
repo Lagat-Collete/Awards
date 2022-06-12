@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load bootstrap4 %} {% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 m-auto">
+        {% if user.profile.profile_photo %}
+        <img src="{{ user.profile.profile_photo.url}}" class="rounded-circle border mt-2 " alt="{{profile.name}}">
+        {% else %}
+        <i style="font-size:100px;color:#1d1c1c" class="fa fa-user" aria-hidden="true"></i>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h2>{{user.username }}</h2>
+        {% if user.profile.bio %}
+        <p>{{user.profile.bio}}</p>
+        {% else %}
+        <p>No bio yet</p>
+        {% endif %}
+        <i class="fas fa-cog"><a href="/profile/{{user.username}}/edit"> Edit</a></i>
+
+    </div>
+</div>
+<hr>
+<h2 class="text-center">Posts</h2>
+<div class="row">
+
+    {% for image in images%}
+    <div class="card m-3">
+        <img src="{{ image.image.url}}" alt="">
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

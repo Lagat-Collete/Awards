@@ -44,7 +44,7 @@ class Project(models.Model):
       self.delete()
 
   def __str__(self):
-    return str(self.user)
+    return str(self.developer)
 
   @classmethod
   def search_by_title(cls,search_term):
@@ -55,7 +55,10 @@ class Rating(models.Model):
   design = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
   usability = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
   content = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
-
+  design_average = models.FloatField(default=0, blank=True)
+  usability_average = models.FloatField(default=0, blank=True)
+  content_average = models.FloatField(default=0, blank=True)
+  
   def __str__(self):
       return str(self.pk)
 

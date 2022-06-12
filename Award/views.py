@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from Award.models import *
 from .forms import *
@@ -11,17 +11,35 @@ from .serializer import *
 def home_page(request):
    return render(request,'homepage.html')
 
+def profile(request,username):
+    user = request.user
+    user = User.objects.filter(username=user.username).first()
+    projects = Project.objects.filter(developer=user)
+    return render(request, 'profile.html', {'user': user,'projects':projects})
+
+
+def user_profile(request,username):
+    user = User.objects.filter(username=username).first()
+    if user == request.user:
+        return redirect('profile',username = user.username)
+    profile = get_object_or_404(Profile,id = user.id)
+    projects = Project.objects.filter(developer=user)
+    return render(request, 'userprofile.html', {'user': user,'profile':profile,'projects':projects})
+
+
+
 def project(request):
-   current_user = request.user
    if request.method == 'POST':
+      current_user = request.user
       form = ProjectForm(request.POST, request.FILES)
       if form.is_valid():
          project = form.save(commit=False)
-         project.developer = current_user
+         project.user = current_user
          project.save()
 
    form = ProjectForm()
-   return render(request, 'project.html', {'form': form})
+   project = Project.objects.all()
+   return render(request, 'project.html', {'project':project,'form': form})
 
 def search_results(request):
 
