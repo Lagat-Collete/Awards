@@ -1,8 +1,12 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate,logout
 from Award.models import *
 from .forms import *
 import datetime as dt
+from django.contrib.auth.models import User
+from django.contrib import messages
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import *
@@ -53,12 +57,7 @@ def search_results(request):
        message = "You haven't searched for any term"
        return render(request, 'search.html',{"message":message})
 
-def rating(request):
-   obj =Rating.objects.filter(usability=0).order_by("?").first()
-   context ={
-      'object': obj
-   }
-   return render(request, 'ratings.html', context)
+
 
 class ProfileList(APIView):
    def get(self, request, format=None):
@@ -72,3 +71,49 @@ class ProjectList(APIView):
       all_project = Project.objects.all()
       serializers = ProjectSerializer(all_project, mant=True)
       return Response(serializers.data)
+
+def project_rating(request, project):
+    project = Project.objects.get(title=project)
+    ratings = Rating.objects.filter(user=request.user, project=project).first()
+    rating_status = None
+    if ratings is None:
+        rating_status = False
+    else:
+        rating_status = True
+    if request.method == 'POST':
+        form = RatingsForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = request.user
+            rate.project = project
+            rate.save()
+            project_ratings = Rating.objects.filter(project=project)
+
+            design_ratings = [d.design for d in project_ratings]
+            design_average = sum(design_ratings) / len(design_ratings)
+
+            usability_ratings = [us.usability for us in project_ratings]
+            usability_average = sum(usability_ratings) / len(usability_ratings)
+
+            content_ratings = [content.content for content in project_ratings]
+            content_average = sum(content_ratings) / len(content_ratings)
+
+            score = (design_average + usability_average + content_average) / 3
+            print(score)
+            rate.design_average = round(design_average, 2)
+            rate.usability_average = round(usability_average, 2)
+            rate.content_average = round(content_average, 2)
+            rate.score = round(score, 2)
+            rate.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = RatingsForm()
+    project_context = {'project': project,'rating_form': form,'rating_status': rating_status
+    }
+    return render(request, 'rating.html', project_context)
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Logged out Sucessfully!")	
+
+    return redirect('login')

@@ -4,12 +4,11 @@ from django.contrib.auth.models import User
 from distutils.command.upload import upload
 from django.dispatch import receiver
 import datetime as dt
-from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from django.core.validators import MaxValueValidator, MinValueValidator
+from urllib.parse import urlparse
 
 
 # Create your models here.
@@ -52,13 +51,26 @@ class Project(models.Model):
     return project
 
 class Rating(models.Model):
-  design = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
-  usability = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
-  content = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
-  design_average = models.FloatField(default=0, blank=True)
-  usability_average = models.FloatField(default=0, blank=True)
-  content_average = models.FloatField(default=0, blank=True)
-  
-  def __str__(self):
-      return str(self.pk)
+    rating = (
+        (1, '1'), (2, '2'),(3, '3'),(4, '4'),(5, '5'), (6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10'),
+    )
+    design = models.IntegerField(choices=rating, default=0, blank=True)
+    usability = models.IntegerField(choices=rating, blank=True)
+    content = models.IntegerField(choices=rating, blank=True)
+    score = models.FloatField(default=0, blank=True)
+    design_average = models.FloatField(default=0, blank=True)
+    usability_average = models.FloatField(default=0, blank=True)
+    content_average = models.FloatField(default=0, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='rater')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='ratings', null=True)
 
+    def save_rating(self):
+        self.save()
+
+    @classmethod
+    def get_ratings(cls, id):
+        ratings = Rating.objects.filter(project_id=id).all()
+        return ratings
+    
+    def __str__(self):
+        return f'{self.project} Rating'

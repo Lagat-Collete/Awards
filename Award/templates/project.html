@@ -13,12 +13,17 @@
           <h5 class="card-title">{{project.title }}</h5>
           <p class="card-text">{{ project.description}}</p>
           <p class="card-text">By: {{ project.developer}}<span>{{project.day_posted|date }}</span></p>
+          <hr>
+          <p class="card-text ">
+            <img id="prof_picture" src="{{post.user.profile.profile_picture.url}} " alt=" "> By {{post.user.username|title}} <span style="float:right ">{{post.date|date}}</span>
+          </p>
 
 
         </div>
         <div class="card-footer">
           <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit
               Site</a></small>
+          <p class="text-center"><a class="btn btn-sm btn-outline-info " href="{% url 'project' project.title %} ">Rate Site</a></p>
         </div>
       </div>
     </div>

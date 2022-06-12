@@ -15,6 +15,9 @@ urlpatterns = [
   path('',views.project, name='project'),
   path('api/profile/', views.ProfileList.as_view()),
   path('api/project/', views.ProjectList.as_view()),
+  path('userprofile/<username>', views.user_profile, name='user_profile'),
+  path('profile/<username>', views.profile, name='profile'),
+  path('project/<project>', views.project_rating, name='project'),
 
 ]
 if settings.DEBUG:
