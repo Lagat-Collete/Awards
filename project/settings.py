@@ -177,3 +177,7 @@ cloudinary.config(
     api_secret=config('api_secret'),
 )
 
+LOGIN_REDIRECT_URL = 'homepage'
+LOGOUT_REDIRECT_URL = 'homepage'
+
+

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate,logout
 from Award.models import *
 from .forms import *
-import datetime as dt
+import datetime 
 from .email import send_welcome_email
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -13,8 +13,9 @@ from rest_framework.views import APIView
 from .serializer import *
 # Create your views here.
 
-def home_page(request):
-   return render(request,'homepage.html')
+def time(request):
+    datetime.datetime.now()
+    return render(request,'project.html')
 
 def profile(request,username):
     user = request.user
@@ -31,6 +32,22 @@ def user_profile(request,username):
     projects = Project.objects.filter(developer=user)
     return render(request, 'userprofile.html', {'user': user,'profile':profile,'projects':projects})
 
+def edit_profile(request,username):
+    user = request.user
+    user = User.objects.filter(username=user.username).first()
+    profile = get_object_or_404(Profile,user=user)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            profileform = form.save(commit=False)
+            profileform.user = user
+            profileform.save()
+        return redirect('profile',username =user.username)
+           
+    else:
+        form = EditProfileForm()
+    
+    return render(request, 'edit_profile.html', {'form':form, 'user': user})
 
 
 def project(request):
@@ -74,6 +91,7 @@ class ProjectList(APIView):
       return Response(serializers.data)
 
 def project_rating(request, project):
+    current_user = request.user
     project = Project.objects.get(title=project)
     ratings = Rating.objects.filter(user=request.user, project = project).first()
     rating_status = None
@@ -109,7 +127,7 @@ def project_rating(request, project):
             return HttpResponseRedirect(request.path_info)
     else:
         form = RatingsForm()
-    project_context = {'project': project,'rating_form': form,'rating_status': rating_status
+    project_context = {'project': project,'rating_form': form,'rating_status': rating_status,'current_user': current_user
     }
     return render(request, 'rating.html', project_context)
 
@@ -134,10 +152,24 @@ def register(request):
             authenticate and login 
             user = authenticate(username = username, password=password)
             login(request,user)
-            return redirect('home')
+            return redirect('homepage')
             
     else:
         form = RegisterUserForm()
         
     return render(request,'registration/registration_form.html', {'form':form})
 
+def post(request):
+    if request.method == 'POST':
+      current_user = request.user
+      form = PostForm(request.POST, request.FILES)
+      if form.is_valid():
+          post = form.save(commit=False)
+          post.developer = current_user
+          post.save()
+      return redirect('home')
+          
+    else:
+        form = PostForm()
+        
+    return render(request,'post.html', {'form':form})

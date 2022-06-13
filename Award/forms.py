@@ -28,3 +28,12 @@ class RegisterUserForm(UserCreationForm):
   class Meta:
       model = User
       fields = ('username', 'email', 'password1', 'password2')
+
+class PostForm(forms.ModelForm):
+   class Meta:
+    model =
+
+class EditProfileForm(forms.ModelForm):
+  class Meta:
+    model = Profile
+    fields = ('profile_photo','bio','user')

@@ -1,13 +1,14 @@
 {% extends 'base.html' %} {% load bootstrap4 %} {% load static %}
 {% block content %}
 {{block.super}}
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <img src="{% static 'images/landing.png' %}" alt="">
-    <div class="title ctr">Title</div>
+    <div class="title ctr">Title{% now 'M-d-Y' %}</div>
   </div>
-</div>
+</div> -->
 <h1>hello project</h1>
+
 <div class="container">
   <div class="row">
     <!-- <div class="col-md-4 mt-3 d-inline-block" > -->
@@ -30,7 +31,7 @@
         <div class="card-footer">
           <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit
               Site</a></small>
-          <small class="text-muted float-right"><a class="btn btn-sm btn-outline-info " href=" ">Rate Site</a></small>
+          <small class="text-muted float-right"><a class="btn btn-sm btn-outline-info " href="{% url 'project' project.title%} ">Rate Site</a></small>
         </div>
       </div>
     </div>
@@ -51,4 +52,3 @@
 
 
 
-<div class="col-md-4 mt-3 d-inline-block" *ngFor="let quote of quotes; let i=index"></div>
