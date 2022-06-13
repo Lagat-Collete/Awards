@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to the Awwards where you can see projects,rate and post yours.

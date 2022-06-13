@@ -19,6 +19,13 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='pitchapp4@gmail.com'
+EMAIL_HOST_PASSWORD ='iwnjytukvctwzqme'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

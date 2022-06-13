@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate,logout
 from Award.models import *
 from .forms import *
 import datetime as dt
+from .email import send_welcome_email
 from django.contrib.auth.models import User
 from django.contrib import messages
 from rest_framework.response import Response
@@ -74,7 +75,7 @@ class ProjectList(APIView):
 
 def project_rating(request, project):
     project = Project.objects.get(title=project)
-    ratings = Rating.objects.filter(user=request.user, project=project).first()
+    ratings = Rating.objects.filter(user=request.user, project = project).first()
     rating_status = None
     if ratings is None:
         rating_status = False
@@ -117,3 +118,26 @@ def logout_view(request):
     messages.success(request, "Logged out Sucessfully!")	
 
     return redirect('login')
+
+def register(request):
+    if request.method == 'POST':
+        
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            email = form.cleaned_data['email']
+            send_welcome_email(username,email)
+            
+            authenticate and login 
+            user = authenticate(username = username, password=password)
+            login(request,user)
+            return redirect('home')
+            
+    else:
+        form = RegisterUserForm()
+        
+    return render(request,'registration/registration_form.html', {'form':form})
+
