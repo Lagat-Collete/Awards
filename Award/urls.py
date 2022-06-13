@@ -21,6 +21,7 @@ urlpatterns = [
   path('project/<project>', views.project_rating, name='project'),
   path('time/',views.time, name='time'),
   path('accounts/register/', views.register, name='register'),
+  path('post/', views.post, name='post'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -31,7 +31,8 @@ class RegisterUserForm(UserCreationForm):
 
 class PostForm(forms.ModelForm):
    class Meta:
-    model =
+    model = Project
+    fields = '__all__'
 
 class EditProfileForm(forms.ModelForm):
   class Meta:
