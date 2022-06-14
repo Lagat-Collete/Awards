@@ -77,14 +77,14 @@ p{
   word-spacing: 10px;
   letter-spacing: 3px;
   height: 70px;
-  background-color: #2d2d2d;
+  background-color: #aaa6a6;
 }
 .footer {
   text-align: center;
   font-style: italic;
-  color: white;
+  
   height: 50px;
-  background-color: #222222;
+  background-color: #504e4e;
 }
 
 .attrib {
