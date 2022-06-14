@@ -22,6 +22,7 @@ urlpatterns = [
   path('time/',views.time, name='time'),
   path('accounts/register/', views.register, name='register'),
   path('post/', views.post, name='post'),
+  path('logout/', views.logout_view, name='logout'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -17,13 +17,14 @@ def time(request):
     datetime.datetime.now()
     return render(request,'project.html')
 
+@login_required
 def profile(request,username):
     user = request.user
     user = User.objects.filter(username=user.username).first()
     projects = Project.objects.filter(developer=user)
     return render(request, 'profile.html', {'user': user,'projects':projects})
 
-
+@login_required
 def user_profile(request,username):
     user = User.objects.filter(username=username).first()
     if user == request.user:
@@ -32,6 +33,7 @@ def user_profile(request,username):
     projects = Project.objects.filter(developer=user)
     return render(request, 'userprofile.html', {'user': user,'profile':profile,'projects':projects})
 
+@login_required
 def edit_profile(request,username):
     user = request.user
     user = User.objects.filter(username=user.username).first()
@@ -135,7 +137,7 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Logged out Sucessfully!")	
 
-    return redirect('login')
+    return redirect('homepage')
 
 def register(request):
     if request.method == 'POST':
@@ -158,7 +160,7 @@ def register(request):
         form = RegisterUserForm()
         
     return render(request,'registration/registration_form.html', {'form':form})
-
+@login_required
 def post(request):
     if request.method == 'POST':
       current_user = request.user
