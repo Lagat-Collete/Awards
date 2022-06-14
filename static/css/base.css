@@ -5,19 +5,17 @@ p{
   color: red;
 }
 .title {
-  position: absolute;
-  background-color: cadetblue;
-  top: 50%;
-  left: 50%;
+ color: blue;
 }
-#register{
-  background: url("/static/images/landing.png");
+#title{
+  color: aqua;
+}
+#landing{
+  background-image: url("{% static 'images/landing.png' %}");
+  /* height: 50%vh; */
 }
 
-.ctr {
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
+
 
 
 .attrib {

@@ -42,7 +42,7 @@ def edit_profile(request,username):
             profileform = form.save(commit=False)
             profileform.user = user
             profileform.save()
-        return redirect('profile',username =user.username)
+        return redirect('profile',username = user.username)
            
     else:
         form = EditProfileForm()
@@ -89,11 +89,10 @@ class ProjectList(APIView):
       all_project = Project.objects.all()
       serializers = ProjectSerializer(all_project, mant=True)
       return Response(serializers.data)
-
+@login_required
 def project_rating(request, project):
-    current_user = request.user
     project = Project.objects.get(title=project)
-    ratings = Rating.objects.filter(user=request.user, project = project).first()
+    ratings = Rating.objects.filter(user=request.user, project = project).order_by('id').first()
     rating_status = None
     if ratings is None:
         rating_status = False
@@ -127,8 +126,7 @@ def project_rating(request, project):
             return HttpResponseRedirect(request.path_info)
     else:
         form = RatingsForm()
-    project_context = {'project': project,'rating_form': form,'rating_status': rating_status,'current_user': current_user
-    }
+    project_context = {'project': project,'rating_form': form,'rating_status': rating_status}
     return render(request, 'rating.html', project_context)
 
 def logout_view(request):
@@ -167,7 +165,7 @@ def post(request):
           post = form.save(commit=False)
           post.developer = current_user
           post.save()
-      return redirect('home')
+      return redirect('homepage')
           
     else:
         form = PostForm()

@@ -1,13 +1,13 @@
 {% extends 'base.html' %} {% load bootstrap4 %} {% load static %}
 {% block content %}
 {{block.super}}
-<!-- <div class="container">
+<div class="container" id="landing" style="min-height: 80vh;">
   <div class="row">
-    <img src="{% static 'images/landing.png' %}" alt="">
-    <div class="title ctr">Title{% now 'M-d-Y' %}</div>
+    
+    <div class="title ctr" id="title">Title{% now 'M-d-Y' %}</div>
   </div>
-</div> -->
-<h1>hello project</h1>
+</div>
+<h1 class="text-center">hello project</h1>
 
 <div class="container">
   <div class="row">
@@ -16,22 +16,16 @@
     {% for project in project %}
     <div class="col-md-4 p-1 ">
       <div class="card p-3 m-2">
-        <h5 class="card-title text-center">{{project.title }}</h5>
+        <h5 class="card-title text-center" id="title">{{project.title }}</h5>
         <img class="card-img-top" src="{{ project.image.url}}" alt="project.developer">
         <div class="card-body">
           <p class="card-text">{{ project.description}}</p>
-          <p class="card-text"><strong> {{ project.developer}}<span>{{project.day_posted|date }}</span></strong></p>
-          <hr>
-          <p class="card-text ">
-            <img id="prof_picture" src="{{post.user.profile.profile_picture.url}} " alt=" "><strong>By {{post.user.username|title}} </strong><span style="float:right">{{post.date|date}}</span>
-          </p>
-
-
+          <p class="card-text"><strong>By: {{ project.developer}}<span class="float-right">{{project.day_posted|date }}</span></strong></p>
         </div>
         <div class="card-footer">
           <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit
               Site</a></small>
-          <small class="text-muted float-right"><a class="btn btn-sm btn-outline-info " href="{% url 'project' project.title%} ">Rate Site</a></small>
+          <small class="text-muted float-right"><a class="btn btn-sm btn-outline-info " href="{% url 'project' project.title %} ">Rate Site</a></small>
         </div>
       </div>
     </div>
