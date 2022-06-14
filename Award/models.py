@@ -28,12 +28,14 @@ class Profile(models.Model):
   @receiver(post_save, sender=User)
   def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user=instance)
+         Profile.objects.create(user=instance)
 
-  
+  @receiver(post_save, sender = User)
+  def save_user_profile(sender, instance, **kwargs):
+       instance.profile.save()
 
-def __str__(self):
-    return str(self.user)
+  def __str__(self):
+      return str(self.user)
 
 class Project(models.Model):
   title = models.CharField(max_length=50)

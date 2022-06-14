@@ -1,13 +1,14 @@
 {% extends 'base.html' %} {% load bootstrap4 %} {% load static %}
 {% block content %}
 {{block.super}}
-<div class="container" id="landing" style="min-height: 80vh;">
-  <div class="row">
-    
-    <div class="title ctr" id="title">Title{% now 'M-d-Y' %}</div>
+<div class="container" id="landing">
+  <div class="row" style="min-height: 40vh;">
+    <div ><h1 class="title">Project of :   <span id="span">{% now 'M-d-Y' %}</span></h1></div>
+    <img src= "{% static 'images/quote.png' %}" alt="">
+    <div><button id="btn"><a href="https://lagat-collete.github.io/Quotes/"></a>Visit Site</button></div>
   </div>
 </div>
-<h1 class="text-center">hello project</h1>
+<h1 class="text-center mt-3" id="hello">Projects Site</h1>
 
 <div class="container">
   <div class="row">
@@ -15,7 +16,7 @@
 
     {% for project in project %}
     <div class="col-md-4 p-1 ">
-      <div class="card p-3 m-2">
+      <div class="card p-3 m-2" style="background-color: #D1E7FE;">
         <h5 class="card-title text-center" id="title">{{project.title }}</h5>
         <img class="card-img-top" src="{{ project.image.url}}" alt="project.developer">
         <div class="card-body">
@@ -23,9 +24,9 @@
           <p class="card-text"><strong>By: {{ project.developer}}<span class="float-right">{{project.day_posted|date }}</span></strong></p>
         </div>
         <div class="card-footer">
-          <small class="text-muted"><a class="btn btn-sm btn-outline-secondary" href="{{ project.hyperlink }}"> Visit
+          <small class="text-muted"><a class="btn btn-sm btn-outline-success" href="{{ project.hyperlink }}"> Visit
               Site</a></small>
-          <small class="text-muted float-right"><a class="btn btn-sm btn-outline-info " href="{% url 'project' project.title %} ">Rate Site</a></small>
+          <small class="text-muted float-right"><a class="btn btn-sm btn-outline-success" href="{% url 'project' project.title %} ">Rate Site</a></small>
         </div>
       </div>
     </div>

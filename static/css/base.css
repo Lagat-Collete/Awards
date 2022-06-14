@@ -1,22 +1,75 @@
 .navbar-brand{
   color: green;
 }
+body{
+  background-color: #D1E7FE;
+}
 p{
-  color: red;
+  color: rgb(65, 63, 63);
+  font-size: 14px;
+}
+#hello{
+  color: #413077;
+
+}
+#search{
+  color: #413077;
+  background-color: #63C9D4;
+}
+#award{
+  color: #413077;
+  font-size: 30px;
+  font-family: 'Tangerine',sans-serif;
+  font-weight: 900;
+
+}
+#home{
+  color: rgb(19, 18, 18);
+  font-size: 30px;
+}
+#span{
+  color: blue;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .title {
- color: blue;
+ letter-spacing: 4px;
+ text-align: center;
+ font-size: 30px;
+ font-weight: 900;
+ color: #2F2E74;
+ font-family: 'Tangerine',sans-serif;
 }
 #title{
-  color: aqua;
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(2, 31, 31);
+  font-family: "Sofia", sans-serif;
+  letter-spacing: 1px;
+  
 }
-#landing{
-  background-image: url("{% static 'images/landing.png' %}");
-  /* height: 50%vh; */
+#btn{
+  width: 100px;
+  border-radius: 30px;
+  margin-left: 50%;
+  border: #37AEC1;
+  background-color: #3CB9CA;
+  color: #914593;
+  height: 35px;
+}
+#btn:hover {
+  background-color: cyan;
+}
+.btn-outline:hover{
+  background-color: cyan;
 }
 
-
-
+.navbar-dark{
+  background-color: #8CD7E2;
+  color: #F8C9DC;
+}
+.navbar-brand {
+  color: #F8C9DC;
+}
 
 .attrib {
   font-weight: 400;
