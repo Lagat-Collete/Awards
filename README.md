@@ -6,11 +6,10 @@ The application will allow a user to post a project he/she has created and get i
 ### By : **Jepngetich Lagat**
 
 ### Home-page
-
-### Login-page
-
+![Screenshot from 2022-06-14 19-21-53](https://user-images.githubusercontent.com/94686368/173652620-25a00bae-9315-4897-9fc1-0bfa50a42735.png)
 
 ### Profile-page
+![Screenshot from 2022-06-14 19-13-58](https://user-images.githubusercontent.com/94686368/173655705-0502b184-a4b4-4545-9d67-3695d28244f6.png)
 
 
 ### Project Cloning instructions
