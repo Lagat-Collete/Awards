@@ -94,10 +94,11 @@ class ProjectList(APIView):
       serializers = ProjectSerializer(all_project, mant=True)
       return Response(serializers.data)
 @login_required
-def project_rating(request, project):
-    project = Project.objects.get(title=project)
-    ratings = Rating.objects.filter(user=request.user, project = project).order_by('id').first()
+def project_rating(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    ratings = Rating.objects.filter(user=request.user, project=project).first()
     rating_status = None
+    username = request.user.username
     if ratings is None:
         rating_status = False
     else:
@@ -130,8 +131,8 @@ def project_rating(request, project):
             return HttpResponseRedirect(request.path_info)
     else:
         form = RatingsForm()
-    project_context = {'project': project,'rating_form': form,'rating_status': rating_status}
-    return render(request, 'rating.html', project_context)
+    
+    return render(request,'rating.html', locals())
 
 def logout_view(request):
     logout(request)

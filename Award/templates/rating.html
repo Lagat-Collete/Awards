@@ -44,7 +44,7 @@
     <div class="card-body ">
       <h5 class="card-title "><strong>{{project.title|title}}</strong>
         <a href="{{ project.url }} " style="float:right " class="btn btn-sm btn-info mr-4 "> Visit </a></h5>
-      <p>By <span><a href="{% url 'profile' project.user.username %} " class="mr-2 ">{{ project.user.username|title }}</a></span></p>
+      <p>By <span><a href="{% url 'profile' username=request.user %} " class="mr-2 ">{{ project.developer.username|title }}</a></span></p>
       <p>{{ project.description }}</p>
       <hr>
       <p class="card-text "><img style="height:10%; width:10%; " src="{{project.user.profile.profile_photo.url}} " class=" mr-2 " alt=" "> By {{project.user.username|title}} <span style="float:right ">{{project.date|date}}</span>
@@ -79,7 +79,7 @@
       <h5>You have already voted</h5>
       {% else %} {% if user.is_authenticated %}
       <form action=" " method="post ">
-        {% csrf_token %} {{rating_form}}
+        {% csrf_token %} {{form}}
         <button class="btn btn-sm btn-info ">Rate</button>
       </form>
       {% endif %} {% endif %}
